@@ -1,0 +1,56 @@
+@import reset
+
+body
+  font: 12pt/1.6em Palatino, Georgia, serif
+  color: #333
+
+a
+  border-bottom: 1px dashed #ccc
+  color: black
+  text-decoration: none
+  
+  &:hover
+    color: #1F6EBD
+
+table
+  border-bottom: 1px solid #E5E5EE
+
+td, th
+  padding: 1em
+
+td
+  background: #F5F5FF
+  border-left: 1px solid #E5E5EE
+
+th
+  font-size: 1.2em
+  text-align: right
+
+.script
+  &:hover
+    th
+      background: #FFF9EC
+      
+    td
+      background: #FFE8AE
+    
+    .commands
+      display: block
+
+.commands
+  display: none
+    
+  pre
+    background: #FCFBE4
+    font: 10pt/1.6em Monaco, monospace
+    padding: 0.2em
+    margin: 1em 0
+    overflow: auto
+
+.empty
+  color: #999
+  font-style: italic
+
+.last-updated
+  padding: 1em
+  text-align: center

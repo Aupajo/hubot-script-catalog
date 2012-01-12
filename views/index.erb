@@ -1,0 +1,30 @@
+<table>
+<% @scripts.each do |script| %>
+  <tr class="script">
+    <th>
+      <a href="https://github.com/github/hubot-scripts/blob/master/src/scripts/<%=h script['name'] %>">
+        <%=h script['name'] %>
+      </a>
+    </th>
+    
+    <td>
+      <% if script['description'].empty? %>
+        <p class="empty">No description available.</p>
+      <% else %>
+        <p class="description"><%= format_description script['description'] %></p>
+      <% end %>
+    
+      <% if !script['commands'].empty? %>
+        <div class="commands">
+          <pre><%=h script['commands'] %></pre>
+        </div>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+
+<p class="last-updated">
+  Last updated: <%= @last_updated %>
+</p>
