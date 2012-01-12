@@ -7,7 +7,7 @@ task :update_scripts do
   exec 'git clone git://github.com/github/hubot-scripts.git tmp/hubot-scripts'
 end
 
-task :catalog do
+task :catalog => :update_scripts do
   require './brain'
   
   Dir['tmp/hubot-scripts/src/scripts/*.coffee'].each do |script|
