@@ -2,8 +2,8 @@ require 'bundler/setup'
 require 'fileutils'
 
 task :update_scripts do
-  mkdir 'tmp'
-  rmdir 'tmp/hubot-scripts'
+  mkdir_p 'tmp'
+  rm_rf 'tmp/hubot-scripts'
   exec 'git clone git://github.com/github/hubot-scripts.git tmp/hubot-scripts'
 end
 
