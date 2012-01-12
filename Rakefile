@@ -4,7 +4,7 @@ require 'fileutils'
 task :update_scripts do
   mkdir_p 'tmp'
   rm_rf 'tmp/hubot-scripts'
-  exec 'git clone git://github.com/github/hubot-scripts.git tmp/hubot-scripts'
+  `git clone git://github.com/github/hubot-scripts.git tmp/hubot-scripts`
 end
 
 task :catalog => :update_scripts do
@@ -12,6 +12,7 @@ task :catalog => :update_scripts do
   
   Dir['tmp/hubot-scripts/src/scripts/*.coffee'].each do |script|
     name = script.split('/').last
+    print "Adding #{name}..."
     
     begin
       file = File.new(script, 'r')
@@ -31,14 +32,17 @@ task :catalog => :update_scripts do
       end
       
       $redis.hmset("scripts:#{name}", :description, description, :commands, commands)
+      puts "OK"
     rescue => error
-      puts "Error in #{name}: #{error}"
+      puts "Error: #{error}"
     ensure
       file.close
     end
   end
   
   $redis[:last_updated] = Time.now
+  
+  puts "Scripts updated."
 end
 
 task :default => :catalog
