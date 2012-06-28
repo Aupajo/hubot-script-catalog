@@ -7,6 +7,7 @@ task :update_scripts do
   `git clone git://github.com/github/hubot-scripts.git tmp/hubot-scripts`
 end
 
+desc 'Retrieve and catalog the latest scripts'
 task :catalog => :update_scripts do
   require './brain'
   
