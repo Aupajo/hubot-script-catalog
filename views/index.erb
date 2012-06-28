@@ -14,7 +14,7 @@
       </h2>
       
       <% if script['author'].present? %>
-        <span class="author">by <%= h script['author'] %></span>
+        <span class="author">by <%= format_authors script['author'] %></span>
       <% end %>
     </div>
     

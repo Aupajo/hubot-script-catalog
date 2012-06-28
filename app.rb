@@ -10,6 +10,10 @@ helpers do
   def format_description(d)
     escape_html(d).gsub(/\n/, "<br>")
   end
+  
+  def format_authors(authors)
+    authors.split("\n").join(", ")
+  end
 end
 
 def all_scripts
