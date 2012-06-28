@@ -13,18 +13,18 @@
         </a>
       </h2>
       
-      <% if script['author'] %>
+      <% if script['author'].present? %>
         <span class="author">by <%= h script['author'] %></span>
       <% end %>
     </div>
     
     <div class="about">
       
-      <% if script['description'] %>
+      <% if script['description'].present? %>
         <p class="description"><%= format_description script['description'] %></p>
       <% end %>
   
-      <% if script['commands'] %>
+      <% if script['commands'].present? %>
         <h3>Commands</h3>
         
         <div class="commands">
@@ -32,7 +32,7 @@
         </div>
       <% end %>
   
-      <% if script['configuration'] %>
+      <% if script['configuration'].present? %>
         <h3>Configuration</h3>
         
         <div class="commands">

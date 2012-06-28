@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'sinatra'
+require 'active_support/core_ext/object/blank'
 require './brain'
 
 helpers do

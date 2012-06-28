@@ -24,7 +24,7 @@ task :read_scripts do
         break unless line[0] == "#"
         cleaned_line = line[2..line.length]
         
-        if !cleaned_line.strip.empty?
+        if !cleaned_line.strip.empty? && cleaned_line.strip.downcase != "none"
           if cleaned_line[0..1] != "  "
             # "Commands:" => "commands"
             current_section = cleaned_line.strip.chomp(":").downcase
