@@ -1,30 +1,45 @@
-<table>
-<% @scripts.each do |script| %>
-  <tr class="script">
-    <th>
-      <a href="https://github.com/github/hubot-scripts/blob/master/src/scripts/<%=h script['name'] %>">
-        <%=h script['name'] %>
-      </a>
-    </th>
-    
-    <td>
-      <% if script['description'].empty? %>
-        <p class="empty">No description available.</p>
-      <% else %>
-        <p class="description"><%= format_description script['description'] %></p>
-      <% end %>
-    
-      <% if !script['commands'].empty? %>
-        <div class="commands">
-          <pre><%=h script['commands'] %></pre>
-        </div>
-      <% end %>
-    </td>
-  </tr>
-<% end %>
-</table>
-
+<h1>Hubot Script Catalog</h1>
 
 <p class="last-updated">
-  Last updated: <%= @last_updated %>
+  Last updated: <%= ((Time.now - @last_updated) / 60).round %> mins ago
 </p>
+
+<% @scripts.each do |script| %>
+  <div class="script">
+    <div class="header">
+      <h2>
+        <a href="https://github.com/github/hubot-scripts/blob/master/src/scripts/<%=h script['name'] %>" class="name">
+          <%= h script['name'] %>
+        </a>
+      </h2>
+      
+      <% if script['author'] %>
+        <span class="author">by <%= h script['author'] %></span>
+      <% end %>
+    </div>
+    
+    <div class="about">
+      
+      <% if script['description'] %>
+        <p class="description"><%= format_description script['description'] %></p>
+      <% end %>
+  
+      <% if script['commands'] %>
+        <h3>Commands</h3>
+        
+        <div class="commands">
+          <pre><%= h script['commands'] %></pre>
+        </div>
+      <% end %>
+  
+      <% if script['configuration'] %>
+        <h3>Configuration</h3>
+        
+        <div class="commands">
+          <pre><%= h script['configuration'] %></pre>
+        </div>
+      <% end %>
+  
+    </div>
+  </div>
+<% end %>
