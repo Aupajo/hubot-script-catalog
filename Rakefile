@@ -7,8 +7,7 @@ task :update_scripts do
   `git clone git://github.com/github/hubot-scripts.git tmp/hubot-scripts`
 end
 
-desc 'Retrieve and catalog the latest scripts'
-task :catalog => :update_scripts do
+task :read_scripts do
   require './brain'
   
   Dir['tmp/hubot-scripts/src/scripts/*.coffee'].each do |script|
@@ -17,22 +16,27 @@ task :catalog => :update_scripts do
     
     begin
       file = File.new(script, 'r')
-      description = ""
-      commands = ""
+      sections = {}
+      current_section = nil
       
       # See Hubot's robot.coffee for how it approaches reading comments
       while line = file.gets
-        break unless (line[0] == "#" || line[0..1] == "//")
-        cleaned_line = line.gsub(/^[#|\/\/]?/, '').lstrip
+        break unless line[0] == "#"
+        cleaned_line = line[2..line.length]
         
-        if cleaned_line.match("-")
-          commands << cleaned_line
-        elsif !cleaned_line.strip.empty?
-          description << cleaned_line
+        if !cleaned_line.strip.empty?
+          if cleaned_line[0..1] != "  "
+            # "Commands:" => "commands"
+            current_section = cleaned_line.strip.chomp(":").downcase
+            sections[current_section] ||= ""
+          else
+            sections[current_section] << cleaned_line.lstrip
+          end
         end
       end
       
-      $redis.hmset("scripts:#{name}", :description, description, :commands, commands)
+      keys_values = sections.to_a.flatten
+      $redis.hmset("scripts:#{name}", *keys_values)
       puts "OK"
     rescue => error
       puts "Error: #{error}"
@@ -44,6 +48,24 @@ task :catalog => :update_scripts do
   $redis[:last_updated] = Time.now
   
   puts "Scripts updated."
+end
+
+desc 'Retrieve and catalog the latest scripts'
+task :catalog => [:update_scripts, :read_scripts]
+
+desc 'Flush scripts'
+task :flush do
+  require './brain'
+  
+  $redis.keys('scripts:*').each do |key|
+    begin
+      print "Deleting #{key}..."
+      $redis.del(key)
+      puts "OK"
+    rescue => error
+      puts "Error: #{error}"
+    end
+  end
 end
 
 task :default => :catalog
