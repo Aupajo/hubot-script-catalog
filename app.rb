@@ -31,7 +31,6 @@ error do
 end
 
 get '/' do
-  raise 'herp'
   @scripts = all_scripts
   @last_updated = Time.parse($redis['last_updated'])
   erb :index
