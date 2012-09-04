@@ -26,7 +26,12 @@ def all_scripts
   scripts.sort_by { |s| s['name'] }
 end
 
+error do
+  503
+end
+
 get '/' do
+  raise 'herp'
   @scripts = all_scripts
   @last_updated = Time.parse($redis['last_updated'])
   erb :index
