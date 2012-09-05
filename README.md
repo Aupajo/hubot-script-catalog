@@ -8,19 +8,21 @@ Available at http://hubot-script-catalog.herokuapp.com (currently updates once a
 Developing
 ----------
 
-Hubot Script Catalog is built in Ruby with Sinatra, and uses [Redis](http://redis.io) to store the script index.
-
+Hubot Script Catalog is built in [Ruby](http://www.ruby-lang.org/en/) with [Sinatra](http://www.sinatrarb.com/), and uses [Redis](http://redis.io) to store the script index.
 
 ### Installing dependencies 
 
-With [Ruby](http://www.ruby-lang.org/en/), [Redis](http://redis.io) and [RubyGems](http://rubygems.org/) present, dependencies can be installed with:
+Make sure Redis is installed.
 
-    gem install bundler
+Ruby dependencies are managed with [Bundler](http://gembundler.com/):
+
     bundle install
 
 ### Building the index
 
-To build the index, just run `rake`.
+To build the index, just run:
+
+    rake
 
 ### Running the site
 
