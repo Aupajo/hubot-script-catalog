@@ -5,7 +5,7 @@
 </p>
 
 <% @scripts.each do |script| %>
-  <div class="script">
+  <div class="script" id="<%= h script['name'] %>">
     <div class="header">
       <h2>
         <a href="https://github.com/github/hubot-scripts/blob/master/src/scripts/<%=h script['name'] %>" class="name">
