@@ -1,6 +1,10 @@
 <h1>Hubot Script Catalog</h1>
 
-<p class="last-updated">
+<p class="meta">
+  Sort:
+    <%= link_unless_current 'Alphabetically', '/' %> |
+    <%= link_unless_current 'Recently updated', '/recent' %>
+  <br>
   Last updated: <%= ((Time.now - @last_updated) / 60).round %> mins ago
 </p>
 
@@ -39,7 +43,10 @@
           <pre><%= h script['configuration'] %></pre>
         </div>
       <% end %>
-  
     </div>
   </div>
 <% end %>
+
+<p class="meta">
+  <a href="https://github.com/Aupajo/hubot-script-catalog">Fork on GitHub</a>
+</p>

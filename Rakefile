@@ -9,8 +9,10 @@ end
 
 task :read_scripts do
   require './brain'
+
+  Dir.chdir('tmp/hubot-scripts')
   
-  Dir['tmp/hubot-scripts/src/scripts/*.coffee'].each do |script|
+  Dir['src/scripts/*.coffee'].each do |script|
     name = script.split('/').last
     print "Adding #{name}..."
     
@@ -34,6 +36,11 @@ task :read_scripts do
           end
         end
       end
+
+      dates = `git log --format=%aD #{script}`.split("\n")
+
+      sections['added_at'] = dates.last
+      sections['last_updated_at'] = dates.first
       
       keys_values = sections.to_a.flatten
       $redis.hmset("scripts:#{name}", *keys_values)
