@@ -52,7 +52,7 @@ get '/' do
 end
 
 get '/recent' do
-  @scripts = all_scripts.sort { |a,b| b['last_updated_at'] <=> a['last_updated_at'] }
+  @scripts = all_scripts.sort { |a,b| b['added_at'] <=> a['added_at'] }
   @last_updated = Time.parse($redis['last_updated'])
   erb :index
 end

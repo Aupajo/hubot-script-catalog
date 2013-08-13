@@ -3,7 +3,7 @@
 <p class="meta">
   Sort:
     <%= link_unless_current 'Alphabetically', '/' %> |
-    <%= link_unless_current 'Recently updated', '/recent' %>
+    <%= link_unless_current 'Recent additions', '/recent' %>
   <br>
   Last updated: <%= ((Time.now - @last_updated) / 60).round %> mins ago
 </p>
